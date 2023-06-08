@@ -7,6 +7,9 @@ const BasicLayout = Loadable(() => import('@/pages/BasicLayout'), {
 const Detail = Loadable(() => import('@/pages/Detail'), {
     fallback: <Loading />,
 });
+const Home = Loadable(() => import('@/pages/Home'), {
+    fallback: <Loading />,
+});
 const NotFound = Loadable(() => import('@/pages/404'), {
     fallback: <Loading />,
 });
@@ -17,7 +20,7 @@ export const routes = [
         children: [
             {
                 path: 'index',
-                element: <NotFound />,
+                element: <Home />,
             },
             {
                 path: 'index2',

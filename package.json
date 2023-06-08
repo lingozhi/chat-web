@@ -1,8 +1,8 @@
 {
-  "name": "chat-web",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+    "name": "chat-web",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
     "scripts": {
         "dev": "cross-env NODE_ENV=development webpack-dev-server -c config/webpack.dev.js",
         "test": "cross-env NODE_ENV=development webpack -c config/webpack.prod.js --progress",
@@ -13,6 +13,7 @@
     "dependencies": {
         "@loadable/component": "^5.15.2",
         "@reduxjs/toolkit": "^1.9.0",
+        "ace-builds": "^1.22.0",
         "antd": "^5.0.7",
         "axios": "^1.1.3",
         "classnames": "^2.3.2",
@@ -21,6 +22,7 @@
         "fabric": "^5.2.4",
         "prop-types": "^15.8.1",
         "react": "^18.2.0",
+        "react-ace": "^10.1.0",
         "react-dom": "^18.2.0",
         "react-redux": "^8.0.5",
         "react-router": "^6.4.3",
@@ -29,13 +31,13 @@
         "size-sensor": "^1.0.1",
         "video.js": "^7.20.3"
     },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/lingozhi/chat-web/issues"
-  },
-  "homepage": "https://github.com/lingozhi/chat-web#readme",
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/lingozhi/chat-web/issues"
+    },
+    "homepage": "https://github.com/lingozhi/chat-web#readme",
     "devDependencies": {
         "@babel/core": "^7.20.2",
         "@babel/preset-env": "^7.20.2",

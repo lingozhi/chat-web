@@ -1,83 +1,71 @@
-import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import './index.less';
+import React from 'react';
+import AceEditor from 'react-ace';
 
-const { Header, Content, Sider } = Layout;
-const items1 = ['1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3'].map((key, index) => ({
-    key: index,
-    label: `nav ${index}`,
-}));
-const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, index) => {
-    const key = String(index + 1);
-    return {
-        key: `sub${key}`,
-        icon: React.createElement(icon),
-        label: `subnav ${key}`,
-        children: new Array(9).fill(null).map((_, j) => {
-            const subKey = index * 4 + j + 1;
-            return {
-                key: subKey,
-                label: `option${subKey}`,
-            };
-        }),
+import 'ace-builds/src-noconflict/mode-html';
+import 'ace-builds/src-noconflict/mode-javascript';
+import 'ace-builds/src-noconflict/mode-css';
+import 'ace-builds/src-noconflict/theme-github';
+
+class CodeEditor extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            html: '',
+            js: '',
+            css: '',
+        };
+    }
+
+    handleHtmlChange = (value) => {
+        this.setState({ html: value });
     };
-});
-const Home = () => {
-    const {
-        token: { colorBgContainer },
-    } = theme.useToken();
-    return (
-        <Layout className="layout">
-            <Header className="header">
-                <div className="logo" />
-                <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1} />
-            </Header>
-            <Layout>
-                <Sider
-                    width={200}
-                    style={{
-                        background: colorBgContainer,
-                        overflowY: 'auto',
-                    }}
-                >
-                    <Menu
-                        mode="inline"
-                        defaultSelectedKeys={['1']}
-                        defaultOpenKeys={['sub1']}
-                        style={{
-                            height: '100%',
-                            borderRight: 0,
-                        }}
-                        items={items2}
-                    />
-                </Sider>
-                <Layout
-                    style={{
-                        padding: '0 24px 24px',
-                    }}
-                >
-                    <Breadcrumb
-                        style={{
-                            margin: '16px 0',
-                        }}
-                    >
-                        <Breadcrumb.Item>Home</Breadcrumb.Item>
-                        <Breadcrumb.Item>List</Breadcrumb.Item>
-                        <Breadcrumb.Item>App</Breadcrumb.Item>
-                    </Breadcrumb>
-                    <Content
-                        style={{
-                            padding: 24,
-                            margin: 0,
-                            minHeight: 280,
-                            background: colorBgContainer,
-                        }}
-                    >
-                        Content
-                    </Content>
-                </Layout>
-            </Layout>
-        </Layout>
-    );
-};
-export default Home;
+
+    handleJsChange = (value) => {
+        this.setState({ js: value });
+    };
+
+    handleCssChange = (value) => {
+        this.setState({ css: value });
+    };
+
+    download = () => {
+        const element = document.createElement('a');
+        const file = new Blob([this.state.html + '\n' + this.state.js + '\n' + this.state.css], { type: 'text/plain' });
+        element.href = URL.createObjectURL(file);
+        element.download = 'myCode.html';
+        document.body.appendChild(element); // Required for this to work in FireFox
+        element.click();
+    };
+
+    render() {
+        return (
+            <div>
+                <AceEditor
+                    mode="html"
+                    theme="github"
+                    onChange={this.handleHtmlChange}
+                    name="htmlEditor"
+                    editorProps={{ $blockScrolling: true }}
+                />
+                <AceEditor
+                    mode="javascript"
+                    theme="github"
+                    onChange={this.handleJsChange}
+                    name="jsEditor"
+                    editorProps={{ $blockScrolling: true }}
+                />
+                <AceEditor
+                    mode="css"
+                    theme="github"
+                    onChange={this.handleCssChange}
+                    name="cssEditor"
+                    editorProps={{ $blockScrolling: true }}
+                />
+                <button onClick={this.download}>导出</button>
+            </div>
+        );
+    }
+}
+
+export default CodeEditor;
