@@ -4,9 +4,6 @@ import Loading from '@/components/loading';
 const BasicLayout = Loadable(() => import('@/pages/BasicLayout'), {
     fallback: <Loading />,
 });
-const Detail = Loadable(() => import('@/pages/Detail'), {
-    fallback: <Loading />,
-});
 const Home = Loadable(() => import('@/pages/Home'), {
     fallback: <Loading />,
 });
@@ -21,10 +18,6 @@ export const routes = [
             {
                 path: 'index',
                 element: <Home />,
-            },
-            {
-                path: 'index2',
-                element: <Detail />,
             },
             {
                 path: '*',

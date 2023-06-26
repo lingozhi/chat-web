@@ -1,71 +1,56 @@
 import './index.less';
-import React from 'react';
-import AceEditor from 'react-ace';
+import React, { useEffect, useState } from 'react';
+import { Space, Table, Tag } from 'antd';
+import { fetchTest, fetchSymboSplit } from '@/api';
 
-import 'ace-builds/src-noconflict/mode-html';
-import 'ace-builds/src-noconflict/mode-javascript';
-import 'ace-builds/src-noconflict/mode-css';
-import 'ace-builds/src-noconflict/theme-github';
-
-class CodeEditor extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            html: '',
-            js: '',
-            css: '',
-        };
-    }
-
-    handleHtmlChange = (value) => {
-        this.setState({ html: value });
+function Home() {
+    const [data, setData] = useState([]);
+    const getData = async () => {
+        const data = await fetchTest();
     };
+    const [loading, setLoading] = useState(false);
+    const columns = [
+        {
+            title: 'index',
+            dataIndex: 'index',
+            key: 'index',
+        },
+        {
+            title: 'part',
+            dataIndex: 'part',
+            key: 'part',
+            // render: (text) => <a>{text}</a>,
+        },
+        {
+            title: 'text',
+            dataIndex: 'text',
+            key: 'text',
+        },
+    ];
 
-    handleJsChange = (value) => {
-        this.setState({ js: value });
+    const split = async () => {
+        const data = await fetchSymboSplit({ text: 'fetchSymboSplit' });
+        setData(data);
+        setLoading(false);
     };
+    // useEffect(() => {
+    //     getData();
+    //     split();
+    // }, []);
 
-    handleCssChange = (value) => {
-        this.setState({ css: value });
-    };
-
-    download = () => {
-        const element = document.createElement('a');
-        const file = new Blob([this.state.html + '\n' + this.state.js + '\n' + this.state.css], { type: 'text/plain' });
-        element.href = URL.createObjectURL(file);
-        element.download = 'myCode.html';
-        document.body.appendChild(element); // Required for this to work in FireFox
-        element.click();
-    };
-
-    render() {
-        return (
-            <div>
-                <AceEditor
-                    mode="html"
-                    theme="github"
-                    onChange={this.handleHtmlChange}
-                    name="htmlEditor"
-                    editorProps={{ $blockScrolling: true }}
-                />
-                <AceEditor
-                    mode="javascript"
-                    theme="github"
-                    onChange={this.handleJsChange}
-                    name="jsEditor"
-                    editorProps={{ $blockScrolling: true }}
-                />
-                <AceEditor
-                    mode="css"
-                    theme="github"
-                    onChange={this.handleCssChange}
-                    name="cssEditor"
-                    editorProps={{ $blockScrolling: true }}
-                />
-                <button onClick={this.download}>导出1212</button>
+    return (
+        <div className="home">
+            <div
+                onClick={() => {
+                    setLoading(true);
+                    split();
+                }}
+            >
+                文本切割
             </div>
-        );
-    }
+            <Table columns={columns} dataSource={data} loading={loading} />
+        </div>
+    );
 }
 
-export default CodeEditor;
+export default Home;

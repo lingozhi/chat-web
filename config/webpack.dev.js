@@ -13,7 +13,7 @@ module.exports = merge(baseConfig, {
     mode: 'development',
     devtool: 'eval-cheap-module-source-map', // 源码调试模式
     devServer: {
-        port: 8070, // 服务端口号
+        port: 8071, // 服务端口号
         compress: false, // gzip压缩,开发环境不开启,提升热更新速度
         hot: true, // 开启热更新，后面会讲react模块热替换具体配置
         static: {
@@ -24,8 +24,8 @@ module.exports = merge(baseConfig, {
             rewrites: [{ from: /./, to: '/index.html' }],
         },
         proxy: {
-            '': {
-                target: '',
+            '/test': {
+                target: 'http://127.0.0.1:8071',
                 changeOrigin: true,
             },
         },
