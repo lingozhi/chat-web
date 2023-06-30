@@ -3,6 +3,6 @@
 export const menuList = [
     {
         key: '/index',
-        label: '首页',
+        label: '绘图',
     },
 ];

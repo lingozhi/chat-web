@@ -18,3 +18,13 @@ export const fetchTest = (params) => {
 export const fetchSymboSplit = (params) => {
     return axios.post('/split', params);
 };
+
+// 根据段落重绘
+export const fetchRedrawParagraph = (params) => {
+    return axios.post('/redraw_paragraph', params);
+};
+
+// 根据分镜重绘
+export const fetchRedrawStoryboard = (params) => {
+    return axios.post('/redraw_storyboard', params);
+};

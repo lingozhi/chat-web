@@ -2,7 +2,7 @@ import axios from 'axios';
 import { message } from 'antd';
 import { exitLogin, storage } from '@/utils';
 
-const instance = axios.create({ baseURL: '/test', timeout: 30000 });
+const instance = axios.create({ baseURL: '/test', timeout: 300000000 });
 
 // 用于存储pending的请求（处理多条相同请求）
 const pendingRequest = new Map();

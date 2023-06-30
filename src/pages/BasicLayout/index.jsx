@@ -22,11 +22,10 @@ const BasicLayout = (props) => {
     return (
         <Layout className="layout">
             <Header className="header">
-                首页
-                <div className="logo" />
+                <div>xxxxxxxxxxxxxxxxxxxxx</div>
             </Header>
             <Layout>
-                <Sider
+                {/* <Sider
                     width={200}
                     style={{
                         background: colorBgContainer,
@@ -41,7 +40,7 @@ const BasicLayout = (props) => {
                             navigate(key);
                         }}
                     />
-                </Sider>
+                </Sider> */}
                 <Layout
                     style={{
                         padding: '0 24px 24px',
